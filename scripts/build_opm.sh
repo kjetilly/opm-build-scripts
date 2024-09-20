@@ -8,9 +8,10 @@ do
     mkdir -p ${build_folder}
     cd ${build_folder}
     cmake .. \
-	  -DCMAKE_PREFIX_PATH="$(realpath ../../dune);$(realpath ../../zoltan)" \
+	  -DCMAKE_PREFIX_PATH="$(realpath ../../dune);$(realpath ../../zoltan);$(realpath ../../fmt)" \
 	  -DCMAKE_CXX_COMPILER=$CXX \
 	  -DCMAKE_C_COMPILER=$CC \
+      -Dfmt_DIR=$(realpath ../../fmt/lib/cmake/fmt) \
 	  -GNinja \
 	  -DCMAKE_BUILD_TYPE=${build_type} \
 	  -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \

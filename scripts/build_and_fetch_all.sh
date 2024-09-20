@@ -23,6 +23,8 @@ else
     export CXX=$(which g++)
 fi
 
+# We need to fix fmt version
+bash ${SCRIPT_DIR}/build_fmt.sh
 bash ${SCRIPT_DIR}/clone_and_compile_dune_zoltan.sh
 mkdir -p opm
 cd opm
