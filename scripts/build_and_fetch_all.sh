@@ -27,9 +27,6 @@ fi
 bash ${SCRIPT_DIR}/build_fmt.sh
 bash ${SCRIPT_DIR}/clone_and_compile_dune_zoltan.sh
 mkdir -p opm
-cd opm
-bash ${SCRIPT_DIR}/fetch_opm.sh
-bash ${SCRIPT_DIR}/build_opm.sh
 mkdir ${installdir}/opm/.vscode
 cp ${SCRIPT_DIR}/vscodesettings.json ${installdir}/opm/.vscode/
 
@@ -37,3 +34,7 @@ cp ${SCRIPT_DIR}/vscodesettings.json ${installdir}/opm/.vscode/
 installdirescaped=$(printf '%s\n' $(realpath "$installdir") | sed -e 's/[\/&]/\\&/g')
 
 sed -i "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/setings.json
+
+cd opm
+bash ${SCRIPT_DIR}/fetch_opm.sh
+bash ${SCRIPT_DIR}/build_opm.sh
