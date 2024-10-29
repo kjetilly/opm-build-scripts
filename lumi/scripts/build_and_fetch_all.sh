@@ -8,14 +8,15 @@ then
     >&2 echo "    bash $0 <INSTALLDIR>"
     exit 1
 fi
-
+export CXX=$(which mpicxx)
+export CC=$(which mpicc)
 
 installdir=$(realpath $1)
 mkdir -p $installdir
 cd $installdir
 
 # Install bost
-bash ${SCRIPT_DIR}/install_boost.sh ${installdir}/boost
+#bash ${SCRIPT_DIR}/install_boost.sh ${installdir}/boost
 
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh

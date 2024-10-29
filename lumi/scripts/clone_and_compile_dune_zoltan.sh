@@ -39,7 +39,7 @@ cd $location
 rm -rf Trilinos
 
 
-dune_version='v2.8.0'
+dune_version='v2.9.0'
 parallel_build_tasks=2
 
 cd $location
@@ -55,6 +55,8 @@ do
         rm -rf ${repo}-${dune_version}.zip
     fi
     cd $repo
+    # Compiler error:
+    find .. -type f \( -name '*.cpp' -o -name '*.hpp' -o -name '*.hh' \) -exec sed -i 's/std::uint64_t/uint64_t/g' {} \;
     #git pull
     rm -rf build
     if [[ ! -d build ]]; then
