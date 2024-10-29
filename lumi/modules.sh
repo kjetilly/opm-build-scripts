@@ -1,0 +1,1 @@
+module load LUMI/24.03
