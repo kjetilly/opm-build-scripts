@@ -40,3 +40,27 @@ do
 done 
 
 wget https://raw.githubusercontent.com/OPM/opm-utilities/master/opm-super/CMakeLists.txt
+
+
+for build_type in "Release" "Debug" "RelWithDebInfo";
+do
+    set -e
+    build_type_lower=$(echo $build_type|awk '{print tolower($0)}')
+    build_folder="build_${build_type_lower}"
+    mkdir -p ${build_folder}
+    cd ${build_folder}
+    
+    cat > "../run_cmake_opm_${build_type_lower}.sh" <<- _EOL_
+cmake .. \
+  -DCMAKE_PREFIX_PATH="$(realpath ../../dune);$(realpath ../../zoltan);$(realpath ../../fmt)" \
+  -DCMAKE_CXX_COMPILER=$CXX \
+  -DCMAKE_C_COMPILER=$CC \
+  -Dfmt_DIR=$(realpath ../../fmt/lib/cmake/fmt) \
+  -GNinja \
+  -DCMAKE_BUILD_TYPE=${build_type} \
+  -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
+  -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \
+  -DCMAKE_C_COMPILER_LAUNCHER=$(which ccache)
+_EOL_
+    cd ..
+done

@@ -21,6 +21,10 @@ if [[ ! -d build ]]; then
     mkdir build
 fi
 cd build
+cat > ../build_zoltan.sh <<- _EOL_
+#!/bin/bash
+set -e
+
 cmake \
     -DCMAKE_C_COMPILER=$CC \
     -DCMAKE_CXX_COMPILER=$CXX \
@@ -35,9 +39,9 @@ cmake \
     ../
 make -j $parallel_build_tasks
 make install
-cd $location
-rm -rf Trilinos
+_EOL_
 
+cd $location
 
 dune_version='v2.8.0'
 parallel_build_tasks=2
@@ -61,14 +65,19 @@ do
         mkdir build
     fi
     cd build
-    cmake -DCMAKE_BUILD_TYPE=Release  \
-        -DCMAKE_C_COMPILER=$CC \
-        -DCMAKE_PREFIX_PATH="$install_prefix;$extra_prefix" \
-        -DCMAKE_INSTALL_PREFIX=$install_prefix \
-        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
-        -DCMAKE_CXX_COMPILER=$CXX \
-        ..
-    make -j $parallel_build_tasks
-    make install
+    cat > ../build_dune_${repo}.sh <<- _EOL_
+#!/bin/bash
+set -e
+
+cmake -DCMAKE_BUILD_TYPE=Release  \
+    -DCMAKE_C_COMPILER=$CC \
+    -DCMAKE_PREFIX_PATH="$install_prefix;$extra_prefix" \
+    -DCMAKE_INSTALL_PREFIX=$install_prefix \
+    -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
+    -DCMAKE_CXX_COMPILER=$CXX \
+    ..
+make -j $parallel_build_tasks
+make install
+_EOL_
     cd $location
 done
