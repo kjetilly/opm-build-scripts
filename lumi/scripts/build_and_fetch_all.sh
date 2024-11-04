@@ -20,12 +20,6 @@ export CXX=$(which mpicxx)
 
 mkdir -p ${installdir}/opm
 mkdir -p ${installdir}/opm/.vscode
-cp ${SCRIPT_DIR}/vscodesettings.json ${installdir}/opm/.vscode/settings.json
-
-# See https://stackoverflow.com/a/2705678
-installdirescaped=$(printf '%s\n' $(realpath "$installdir") | sed -e 's/[\/&]/\\&/g')
-sed -i "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/settings.json
-
 
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh
