@@ -1,5 +1,5 @@
 #!/bin/bash
-
+location=$(pwd)
 for build_type in "Release" "Debug" "RelWithDebInfo";
 do
     set -e
@@ -9,4 +9,5 @@ do
     cd ${build_folder}
     bash ../run_cmake_opm_${build_type_lower}.sh
     ninja
+    cd ${location}
 done
