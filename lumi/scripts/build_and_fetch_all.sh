@@ -22,8 +22,6 @@ mkdir -p ${installdir}/opm
 mkdir -p ${installdir}/opm/.vscode
 
 bash ${SCRIPT_DIR}/install_boost.sh ${installdir}/zoltan
-bash ${SCRIPT_DIR}/fetch_and_compile_blas.sh ${installdir}/zoltan
-
 
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh
