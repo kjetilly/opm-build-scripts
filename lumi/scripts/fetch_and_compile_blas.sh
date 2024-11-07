@@ -15,5 +15,5 @@ tar xvf v3.12.0.tar.gz
 cd lapack-3.12.0
 mkdir build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=${install_dir} -DBUILD_SHARED_LIBS=ON -DCBLAS=ON -DLAPACK++=ON -DBLAS++=ON
+cmake .. -DCMAKE_INSTALL_PREFIX=${install_dir} -DBUILD_SHARED_LIBS=OFF -DCBLAS=ON
 make install
