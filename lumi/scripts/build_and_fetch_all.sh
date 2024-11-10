@@ -9,17 +9,25 @@ then
     exit 1
 fi
 
-
 installdir=$(realpath $1)
 mkdir -p $installdir
 cd $installdir
+installdir=$(realpath $(pwd))
+cd $installdir
 
-
-export CC=$(which mpicc)
-export CXX=$(which mpicxx)
+export CC=$(which cc)
+export CXX=$(which CC)
 
 mkdir -p ${installdir}/opm
 mkdir -p ${installdir}/opm/.vscode
+
+bash ${SCRIPT_DIR}/install_boost.sh ${installdir}/zoltan
+bash ${SCRIPT_DIR}/download_cmake.sh ${installdir}/cmake
+export PATH=${installdir}/cmake/bin:$PATH
+bash ${SCRIPT_DIR}/fetch_and_compile_blas.sh ${installdir}/zoltan
+bash ${SCRIPT_DIR}/install_gmp.sh ${installdir}/zoltan
+bash ${SCRIPT_DIR}/install_mpfr.sh ${installdir}/zoltan
+bash ${SCRIPT_DIR}/fetch_and_compile_suitesparse.sh ${installdir}/zoltan
 
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh

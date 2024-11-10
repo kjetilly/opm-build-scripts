@@ -40,7 +40,8 @@ do
 done 
 
 wget https://raw.githubusercontent.com/OPM/opm-utilities/master/opm-super/CMakeLists.txt
-
+head -n -2 CMakeLists.txt > tmp.txt
+mv tmp.txt CMakeLists.txt
 
 for build_type in "Release" "Debug" "RelWithDebInfo";
 do
@@ -56,11 +57,12 @@ cmake .. \
   -DCMAKE_CXX_COMPILER=$CXX \
   -DCMAKE_C_COMPILER=$CC \
   -Dfmt_DIR=$(realpath ../../fmt/lib/cmake/fmt) \
-  -GNinja \
   -DCMAKE_BUILD_TYPE=${build_type} \
-  -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
-  -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \
-  -DCMAKE_C_COMPILER_LAUNCHER=$(which ccache)
+  -DSuiteSparse_LIBRARIES=$(realpath ../../zoltan/lib64/libsuitesparseconfig.a) \
+  -DHAVE_SUITESPARSE_UMFPACK=1 \
+  -DSuiteSparse_INCLUDE_DIRS=$(realpath ../../zoltan/include) \
+  -DCONVERT_CUDA_TO_HIP=ON \
+  -DLAPACK_LIBRARIES="$(realpath ../../zoltan/lib64/liblapack.a)" 
 _EOL_
     cd ..
 done

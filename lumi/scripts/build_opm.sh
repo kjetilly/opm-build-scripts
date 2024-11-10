@@ -8,6 +8,6 @@ do
     mkdir -p ${build_folder}
     cd ${build_folder}
     bash ../run_cmake_opm_${build_type_lower}.sh
-    ninja
+    make -j4
     cd ${location}
 done

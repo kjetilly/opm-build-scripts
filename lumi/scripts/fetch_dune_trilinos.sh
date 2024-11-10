@@ -33,6 +33,7 @@ cmake \
     -D TPL_ENABLE_MPI:BOOL=ON \
     -D Trilinos_ENABLE_ALL_PACKAGES:BOOL=OFF \
     -D Trilinos_ENABLE_Zoltan:BOOL=ON \
+    -DTrilinos_ENABLE_Fortran:BOOL=OFF \
     -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
     -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} \
     -Wno-dev \
@@ -59,6 +60,12 @@ do
         rm -rf ${repo}-${dune_version}.zip
     fi
     cd $repo
+
+    # We need to compile on cray it seems
+    if [ "$repo" == "dune-geometry" ]
+    then
+	sed -i '1i #include <cstdint>' dune/geometry/type.hh
+    fi
     #git pull
     rm -rf build
     if [[ ! -d build ]]; then
