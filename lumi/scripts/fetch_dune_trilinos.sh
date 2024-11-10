@@ -59,12 +59,6 @@ do
         rm -rf ${repo}-${dune_version}.zip
     fi
     cd $repo
-
-    # We need to compile on cray it seems
-    if [ "$repo" == "dune-geometry" ]
-    then
-	sed -i '1i #include <cstdint>' dune/geometry/type.hh
-    fi
     #git pull
     rm -rf build
     if [[ ! -d build ]]; then

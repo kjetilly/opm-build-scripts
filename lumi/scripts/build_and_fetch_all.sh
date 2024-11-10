@@ -21,14 +21,6 @@ export CXX=$(which mpicxx)
 mkdir -p ${installdir}/opm
 mkdir -p ${installdir}/opm/.vscode
 
-bash ${SCRIPT_DIR}/install_boost.sh ${installdir}/zoltan
-bash ${SCRIPT_DIR}/download_cmake.sh ${installdir}/cmake
-export PATH=${installdir}/cmake/bin:$PATH
-bash ${SCRIPT_DIR}/fetch_and_compile_blas.sh ${installdir}/zoltan
-bash ${SCRIPT_DIR}/install_gmp.sh ${installdir}/zoltan
-bash ${SCRIPT_DIR}/install_mpfr.sh ${installdir}/zoltan
-bash ${SCRIPT_DIR}/fetch_and_compile_suitesparse.sh ${installdir}/zoltan
-
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh
 cd ${installdir}

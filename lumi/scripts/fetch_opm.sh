@@ -56,8 +56,11 @@ cmake .. \
   -DCMAKE_CXX_COMPILER=$CXX \
   -DCMAKE_C_COMPILER=$CC \
   -Dfmt_DIR=$(realpath ../../fmt/lib/cmake/fmt) \
+  -GNinja \
   -DCMAKE_BUILD_TYPE=${build_type} \
-  -DLAPACK_LIBRARIES="$(realpath ../../zoltan/lib/liblapack.a)" \
+  -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
+  -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \
+  -DCMAKE_C_COMPILER_LAUNCHER=$(which ccache)
 _EOL_
     cd ..
 done
