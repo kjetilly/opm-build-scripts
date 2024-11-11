@@ -62,6 +62,7 @@ cmake .. \
   -DHAVE_SUITESPARSE_UMFPACK=1 \
   -DSuiteSparse_INCLUDE_DIRS=$(realpath ../../zoltan/include) \
   -DCONVERT_CUDA_TO_HIP=ON \
+  -DUSE_HIP=ON \
   -DLAPACK_LIBRARIES="$(realpath ../../zoltan/lib64/liblapack.a)" 
 _EOL_
     cd ..
