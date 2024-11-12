@@ -52,10 +52,10 @@ do
     
     cat > "../run_cmake_opm_${build_type_lower}.sh" <<- _EOL_
 cmake .. \
-  -DCMAKE_PREFIX_PATH="$(realpath ../../dune);$(realpath ../../zoltan);$(realpath ../../fmt)" \
+  -DCMAKE_PREFIX_PATH="$(realpath ${OPM_DEPENDENCIES_DIR}/dune);$(realpath ${OPM_DEPENDENCIES_DIR}/zoltan);$(realpath ${OPM_DEPENDENCIES_DIR}/fmt)" \
   -DCMAKE_CXX_COMPILER=$CXX \
   -DCMAKE_C_COMPILER=$CC \
-  -Dfmt_DIR=$(realpath ../../fmt/lib/cmake/fmt) \
+  -Dfmt_DIR=$(realpath ${OPM_DEPENDENCIES_DIR}/fmt/lib/cmake/fmt) \
   -GNinja \
   -DCMAKE_BUILD_TYPE=${build_type} \
   -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \

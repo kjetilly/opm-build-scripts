@@ -5,9 +5,8 @@ location=`pwd`
 parallel_build_tasks=16
 trilinos_version=13-4-1
 install_prefix=$location"/zoltan"
-if [[ ! -d $install_prefix ]]; then
-    mkdir $install_prefix
-fi
+mkdir -p $install_prefix
+install_prefix=$(realpath $install_prefix)
 
 if [[ ! -d Trilinos ]]; then
     # git clone https://github.com/trilinos/Trilinos.git
@@ -48,6 +47,8 @@ parallel_build_tasks=2
 
 cd $location
 install_prefix=$location/dune
+mkdir -p $install_prefix
+install_prefix=$(realpath $install_prefix)
 for repo in dune-common dune-geometry dune-grid dune-istl
 do
     echo "=== Cloning and building module: $repo"
