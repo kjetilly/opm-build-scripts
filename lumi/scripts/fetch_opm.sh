@@ -63,6 +63,8 @@ cmake .. \
   -DSuiteSparse_INCLUDE_DIRS=$(realpath ../../zoltan/include) \
   -DCONVERT_CUDA_TO_HIP=ON \
   -DUSE_HIP=1 \
+  -DUSE_BDA_BRIDGE=OFF \
+  -DHAVE_CUDA=1 \
   -DLAPACK_LIBRARIES="$(realpath ../../zoltan/lib64/liblapack.a)" 
 _EOL_
     cd ..
