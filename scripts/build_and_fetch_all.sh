@@ -16,10 +16,14 @@ cd $installdir
 export OPM_DEPENDENCIES_DIR=${installdir}
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export CC=$(which clang)
-    export CXX=$(which clang++)
-elif [[ $(type -P "gcc-11") ]]
-then
+    if [[ "$OPM_USE_CLANG" = true ]]; then
+        export CC=$(which clang)
+        export CXX=$(which clang++)
+    else
+        export CC=$(which gcc-14)
+        export CXX=$(which g++-14)
+    fi
+elif [[ $(type -P "gcc-11") ]]; then
     export CC=$(which gcc-11)
     export CXX=$(which g++-11)
 else
@@ -38,9 +42,12 @@ sed -i '' "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/setti
 echo "there"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export CXXFLAGS="-I/opt/homebrew/include"
-    export CFLAGS="-I/opt/homebrew/include"
+    export CXXFLAGS="-isystem /opt/homebrew/include"
+    export CFLAGS="-isystem /opt/homebrew/include"
 fi
+
+mkdir -p ${installdir}/zoltan
+bash ${SCRIPT_DIR}/fetch_and_compile_suitesparse.sh ${installdir}/zoltan
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh
 cd ${installdir}

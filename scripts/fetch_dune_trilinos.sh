@@ -42,7 +42,7 @@ _EOL_
 
 cd $location
 
-dune_version='v2.8.0'
+dune_version='v2.9.1'
 parallel_build_tasks=2
 
 cd $location

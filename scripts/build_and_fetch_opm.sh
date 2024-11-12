@@ -16,9 +16,14 @@ mkdir -p $installdir
 cd $installdir
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export CC=$(which clang)
-    export CXX=$(which clang++)
-elif [[ $(type -P "gcc-11") ]]
+    if [[ "$OPM_USE_CLANG" = true ]]; then
+        export CC=$(which clang)
+        export CXX=$(which clang++)
+    else
+        export CC=$(which gcc-11)
+        export CXX=$(which g++-11)
+    fi
+elif [[ $(type -P "gcc-11") ]]; then
     export CC=$(which gcc-11)
     export CXX=$(which g++-11)
 else
@@ -37,8 +42,8 @@ sed -i '' "s/SOURCES_DIR/${opmsourcesdirescaped}/g" ${installdir}/opm/.vscode/se
 echo "there"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export CXXFLAGS="-I/opt/homebrew/include"
-    export CFLAGS="-I/opt/homebrew/include"
+    export CXXFLAGS="-isystem /opt/homebrew/include"
+    export CFLAGS="-isystem /opt/homebrew/include"
 fi
 
 cd ${installdir}/opm
