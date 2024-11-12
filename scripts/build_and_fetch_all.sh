@@ -47,7 +47,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 mkdir -p ${installdir}/zoltan
-bash ${SCRIPT_DIR}/fetch_and_compile_suitesparse.sh ${installdir}/zoltan
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh
 cd ${installdir}
