@@ -49,7 +49,11 @@ do
     build_folder="build_${build_type_lower}"
     mkdir -p ${build_folder}
     cd ${build_folder}
-    
+    omp_string=""
+    if [ $build_type_lower == "release" ]
+    then
+        omp_string="-DOpenMP_ROOT=/opt/homebrew/opt/libomp  -DCMAKE_C_FLAGS='-isystem /opt/homebrew/opt/libomp/include' -DCMAKE_CXX_FLAGS='-isystem /opt/homebrew/opt/libomp/include'"
+    fi
     cat > "../run_cmake_opm_${build_type_lower}.sh" <<- _EOL_
 cmake .. \
   -DCMAKE_PREFIX_PATH="$(realpath ${OPM_DEPENDENCIES_DIR}/dune);$(realpath ${OPM_DEPENDENCIES_DIR}/zoltan);$(realpath ${OPM_DEPENDENCIES_DIR}/fmt)" \
@@ -58,6 +62,7 @@ cmake .. \
   -Dfmt_DIR=$(realpath ${OPM_DEPENDENCIES_DIR}/fmt/lib/cmake/fmt) \
   -GNinja \
   -DCMAKE_BUILD_TYPE=${build_type} \
+  ${omp_string} \
   -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
   -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \
   -DCMAKE_C_COMPILER_LAUNCHER=$(which ccache)
