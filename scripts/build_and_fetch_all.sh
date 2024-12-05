@@ -57,6 +57,8 @@ mkdir -p ${installdir}/zoltan
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh
 cd ${installdir}
+bash ${SCRIPT_DIR}/compile_metis.sh
+cd ${installdir}
 bash ${SCRIPT_DIR}/fetch_dune_trilinos.sh
 cd ${installdir}/opm
 bash ${SCRIPT_DIR}/fetch_opm.sh

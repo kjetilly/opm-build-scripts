@@ -62,6 +62,7 @@ cmake .. \
   -Dfmt_DIR=$(realpath ${OPM_DEPENDENCIES_DIR}/fmt/lib/cmake/fmt) \
   -GNinja \
   -DCMAKE_BUILD_TYPE=${build_type} \
+  -DMETIS_ROOT=$(realpath ${OPM_DEPENDENCIES_DIR}/metis) \
   ${omp_string} \
   -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
   -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \
