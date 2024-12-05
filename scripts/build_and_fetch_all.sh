@@ -23,6 +23,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
         export CC=$(which gcc-14)
         export CXX=$(which g++-14)
     fi
+elif [[ "$OPM_USE_CLANG" = true ]]; then
+    export CC=$(which clang)
+    export CXX=$(which clang++)
 elif [[ $(type -P "gcc-11") ]]; then
     export CC=$(which gcc-11)
     export CXX=$(which g++-11)
@@ -38,7 +41,11 @@ cp ${SCRIPT_DIR}/vscodesettings.json ${installdir}/opm/.vscode/settings.json
 # See https://stackoverflow.com/a/2705678
 installdirescaped=$(printf '%s\n' $(realpath "$installdir") | sed -e 's/\//\\\//g')
 echo "here"
-sed -i '' "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/settings.json
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/settings.json
+else
+    sed -i "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/settings.json
+fi
 echo "there"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then

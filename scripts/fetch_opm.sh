@@ -50,7 +50,7 @@ do
     mkdir -p ${build_folder}
     cd ${build_folder}
     omp_string=""
-    if [ $build_type_lower == "release" ]
+    if [[ "$OSTYPE" == "darwin"* ]]; then
     then
         omp_string="-DOpenMP_ROOT=/opt/homebrew/opt/libomp  -DCMAKE_C_FLAGS='-isystem /opt/homebrew/opt/libomp/include' -DCMAKE_CXX_FLAGS='-isystem /opt/homebrew/opt/libomp/include'"
     fi
