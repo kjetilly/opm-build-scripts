@@ -27,7 +27,7 @@ then
     fi
 fi
 
-for repo in COMMON MODELS GRID SIMULATORS UPSCALING
+for repo in COMMON GRID SIMULATORS UPSCALING
 do
     urlvarname="OPM_${repo}_REPO"
     branchvarname="OPM_${repo}_BRANCH"
@@ -63,6 +63,8 @@ cmake .. \
   -GNinja \
   -DCMAKE_BUILD_TYPE=${build_type} \
   -DMETIS_ROOT=$(realpath ${OPM_DEPENDENCIES_DIR}/metis) \
+  -DCMAKE_EXE_LINKER_FLAGS="-lGKlib" \
+  -DCMAKE_SHARED_LINKER_FLAGS="-lGKlib" \
   ${omp_string} \
   -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
   -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \

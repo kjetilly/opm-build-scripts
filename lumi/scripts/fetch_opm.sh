@@ -27,7 +27,7 @@ then
     fi
 fi
 
-for repo in COMMON MODELS GRID SIMULATORS UPSCALING
+for repo in COMMON GRID SIMULATORS UPSCALING
 do
     urlvarname="OPM_${repo}_REPO"
     branchvarname="OPM_${repo}_BRANCH"
