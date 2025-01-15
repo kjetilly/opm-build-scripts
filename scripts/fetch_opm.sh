@@ -61,6 +61,8 @@ cmake .. \
   -DCMAKE_C_COMPILER=$CC \
   -Dfmt_DIR=$(realpath ${OPM_DEPENDENCIES_DIR}/fmt/lib/cmake/fmt) \
   -GNinja \
+  -DUSE_OPENCL=OFF \
+  -DUSE_GPU_BRIDGE=OFF \
   -DCMAKE_BUILD_TYPE=${build_type} \
   -DMETIS_ROOT=$(realpath ${OPM_DEPENDENCIES_DIR}/metis) \
   -DCMAKE_EXE_LINKER_FLAGS="-lGKlib" \
