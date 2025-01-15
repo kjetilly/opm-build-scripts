@@ -63,7 +63,7 @@ cmake .. \
   -DSuiteSparse_INCLUDE_DIRS=$(realpath ../../zoltan/include) \
   -DCONVERT_CUDA_TO_HIP=ON \
   -DUSE_HIP=1 \
-  -DUSE_BDA_BRIDGE=OFF \
+  -DUSE_GPU_BRIDGE=OFF \
   -DHAVE_CUDA=1 \
   -DCMAKE_HIP_ARCHITECTURES=gfx90a \
   -DLAPACK_LIBRARIES="$(realpath ../../zoltan/lib64/liblapack.a)" 
