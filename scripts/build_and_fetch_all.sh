@@ -14,7 +14,11 @@ installdir=$(realpath $1)
 mkdir -p $installdir
 cd $installdir
 export OPM_DEPENDENCIES_DIR=${installdir}
-
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ -z ${OPM_USE_CLANG+x} ]; then
+        export OPM_USE_CLANG=true
+    fi
+fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
     if [[ "$OPM_USE_CLANG" = true ]]; then
         export CC=$(which clang)
@@ -56,8 +60,8 @@ fi
 mkdir -p ${installdir}/zoltan
 # We need to fix fmt version
 bash ${SCRIPT_DIR}/build_fmt.sh
-cd ${installdir}
-bash ${SCRIPT_DIR}/compile_metis.sh
+#cd ${installdir}
+#bash ${SCRIPT_DIR}/compile_metis.sh
 cd ${installdir}
 bash ${SCRIPT_DIR}/fetch_dune_trilinos.sh
 cd ${installdir}/opm

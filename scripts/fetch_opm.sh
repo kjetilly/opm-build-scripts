@@ -65,8 +65,6 @@ cmake .. \
   -DUSE_GPU_BRIDGE=OFF \
   -DCMAKE_BUILD_TYPE=${build_type} \
   -DMETIS_ROOT=$(realpath ${OPM_DEPENDENCIES_DIR}/metis) \
-  -DCMAKE_EXE_LINKER_FLAGS="-lGKlib" \
-  -DCMAKE_SHARED_LINKER_FLAGS="-lGKlib" \
   ${omp_string} \
   -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
   -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \

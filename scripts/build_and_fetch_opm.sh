@@ -14,6 +14,11 @@ mkdir -p $1
 installdir=$(realpath $1)
 mkdir -p $installdir
 cd $installdir
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [ -z ${OPM_USE_CLANG+x} ]; then
+        export OPM_USE_CLANG=true
+    fi
+fi
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
     if [[ "$OPM_USE_CLANG" = true ]]; then
