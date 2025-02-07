@@ -53,13 +53,19 @@ do
     if [[ "$OSTYPE" == "darwin"* ]]
     then
         omp_string="-DOpenMP_ROOT=/opt/homebrew/opt/libomp  -DCMAKE_C_FLAGS='-isystem /opt/homebrew/opt/libomp/include' -DCMAKE_CXX_FLAGS='-isystem /opt/homebrew/opt/libomp/include'"
+        fmt_string=""
+        fmt_folder=""
+    else
+        fmt_string="-Dfmt_DIR=$(realpath ${OPM_DEPENDENCIES_DIR}/fmt/lib/cmake/fmt)"
+        fmt_folder="$(realpath ${OPM_DEPENDENCIES_DIR}/fmt)"
     fi
+
     cat > "../run_cmake_opm_${build_type_lower}.sh" <<- _EOL_
 cmake .. \
-  -DCMAKE_PREFIX_PATH="$(realpath ${OPM_DEPENDENCIES_DIR}/dune);$(realpath ${OPM_DEPENDENCIES_DIR}/zoltan);$(realpath ${OPM_DEPENDENCIES_DIR}/fmt)" \
+  -DCMAKE_PREFIX_PATH="$(realpath ${OPM_DEPENDENCIES_DIR}/dune);$(realpath ${OPM_DEPENDENCIES_DIR}/zoltan);${fmt_folder}" \
   -DCMAKE_CXX_COMPILER=$CXX \
   -DCMAKE_C_COMPILER=$CC \
-  -Dfmt_DIR=$(realpath ${OPM_DEPENDENCIES_DIR}/fmt/lib/cmake/fmt) \
+  ${fmt_string} \
   -GNinja \
   -DUSE_OPENCL=OFF \
   -DUSE_GPU_BRIDGE=OFF \
