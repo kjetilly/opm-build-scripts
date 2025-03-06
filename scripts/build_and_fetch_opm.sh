@@ -10,6 +10,11 @@ then
     exit 1
 fi
 
+if [ -z ${OPM_DEPENDENCIES_DIR+x} ]; then
+    >&2 echo "OPM_DEPENDENCIES_DIR is not set. Please set it to the directory where you want to download the OPM dependencies."
+    exit 1
+fi
+
 mkdir -p $1
 installdir=$(realpath $1)
 mkdir -p $installdir
@@ -42,10 +47,11 @@ cp ${SCRIPT_DIR}/vscodesettings.json ${installdir}/opm/.vscode/settings.json
 
 # See https://stackoverflow.com/a/2705678
 opmsourcesdirescaped=$(printf '%s\n' $(realpath "$OPM_DEPENDENCIES_DIR") | sed -e 's/\//\\\//g')
-echo "here"
-sed -i '' "s/SOURCES_DIR/${opmsourcesdirescaped}/g" ${installdir}/opm/.vscode/settings.json
-echo "there"
-
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "s/SOURCES_DIR/${opmsourcesdirescaped}/g" ${installdir}/opm/.vscode/settings.json
+else
+    sed -i "s/SOURCES_DIR/${opmsourcesdirescaped}/g" ${installdir}/opm/.vscode/settings.json
+fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
     export CXXFLAGS="-isystem /opt/homebrew/include"
     export CFLAGS="-isystem /opt/homebrew/include"
