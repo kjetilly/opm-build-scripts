@@ -66,15 +66,13 @@ cmake .. \
   -DCMAKE_CXX_COMPILER=$CXX \
   -DCMAKE_C_COMPILER=$CC \
   ${fmt_string} \
-  -GNinja \
   -DUSE_OPENCL=OFF \
   -DUSE_GPU_BRIDGE=OFF \
   -DCMAKE_BUILD_TYPE=${build_type} \
   -DMETIS_ROOT=$(realpath ${OPM_DEPENDENCIES_DIR}/metis) \
-  ${omp_string} \
-  -DCMAKE_CXX_COMPILER_LAUNCHER=$(which ccache) \
-  -DCMAKE_CUDA_COMPILER_LAUNCHER=$(which ccache) \
-  -DCMAKE_C_COMPILER_LAUNCHER=$(which ccache)
+    ${omp_string}
+    
 _EOL_
     cd ..
 done
+

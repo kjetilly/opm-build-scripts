@@ -1,6 +1,6 @@
 #!/bin/bash
 location=$(pwd)
-for build_type in "Release" "Debug" "RelWithDebInfo";
+for build_type in "Release";
 do
     set -e
     build_type_lower=$(echo $build_type|awk '{print tolower($0)}')
@@ -8,6 +8,6 @@ do
     mkdir -p ${build_folder}
     cd ${build_folder}
     bash ../run_cmake_opm_${build_type_lower}.sh
-    ninja
+    make -j12 install
     cd ${location}
 done

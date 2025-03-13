@@ -25,8 +25,8 @@ cat > ../build_zoltan.sh <<- _EOL_
 set -e
 
 cmake \
-    -DCMAKE_C_COMPILER=$CC \
-    -DCMAKE_CXX_COMPILER=$CXX \
+    -DCMAKE_C_COMPILER=$(which mpicc) \
+    -DCMAKE_CXX_COMPILER=$(which mpic++) \
     -DCMAKE_INSTALL_PREFIX=$install_prefix \
     -DCMAKE_PREFIX_PATH=$extra_prefix \
     -D TPL_ENABLE_MPI:BOOL=ON \
