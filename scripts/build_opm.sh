@@ -8,6 +8,7 @@ do
     mkdir -p ${build_folder}
     cd ${build_folder}
     bash ../run_cmake_opm_${build_type_lower}.sh
-    make -j12 install
+    make -j12
+    make -j12
     cd ${location}
 done
