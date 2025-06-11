@@ -52,6 +52,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
     sed -i "s/SOURCES_DIR/${opmsourcesdirescaped}/g" ${installdir}/opm/.vscode/settings.json
 fi
+sed -i '' "s/SOURCES_DIR/${opmsourcesdirescaped}/g" ${installdir}/opm/.vscode/settings.json
+echo "there"
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
     export CXXFLAGS="-isystem /opt/homebrew/include"
     export CFLAGS="-isystem /opt/homebrew/include"

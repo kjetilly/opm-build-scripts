@@ -46,6 +46,11 @@ cp ${SCRIPT_DIR}/vscodesettings.json ${installdir}/opm/.vscode/settings.json
 installdirescaped=$(printf '%s\n' $(realpath "$installdir") | sed -e 's/\//\\\//g')
 echo "here"
 if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' "s/FMT_STRNG/${opmsourcesdirescaped}/g" ${installdir}/opm/.vscode/settings.json
+else
+    sed -i "s/FMT_STRING/\"-Dfmt_DIR=SOURCES_DIR\/fmt\/lib\/cmake\/fmt\",/g" ${installdir}/opm/.vscode/settings.json
+fi
+if [[ "$OSTYPE" == "darwin"* ]]; then
     sed -i '' "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/settings.json
 else
     sed -i "s/SOURCES_DIR/${installdirescaped}/g" ${installdir}/opm/.vscode/settings.json

@@ -1,8 +1,8 @@
 {
     "cmake.configureArgs": [
         "-DCMAKE_PREFIX_PATH='SOURCES_DIR/dune;SOURCES_DIR/zoltan;SOURCES_DIR/fmt'",
-        "-Dfmt_DIR=SOURCES_DIR/fmt/lib/cmake/fmt",
-	"-DUSE_OPENCL=OFF",
+        FMT_STRING
+        "-DUSE_OPENCL=OFF",
 	"-DUSE_GPU_BRIDGE=OFF"
     ],
     "cmake.buildToolArgs": [
