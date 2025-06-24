@@ -53,11 +53,16 @@ for repo in dune-common dune-geometry dune-grid dune-istl
 do
     echo "=== Cloning and building module: $repo"
     if [[ ! -d $repo ]]; then
-        #git clone -b releases/2.8 https://gitlab.dune-project.org/core/$repo.git
-        wget https://gitlab.dune-project.org/core/${repo}/-/archive/${dune_version}/${repo}-${dune_version}.zip
-        unzip ${repo}-${dune_version}.zip
-        mv ${repo}-${dune_version} $repo
-        rm -rf ${repo}-${dune_version}.zip
+        if [[ "$repo" == "dune-common" ]]
+        then
+            git clone git@github.com:kjetilly/dune-common.git -b gpufixing
+        else 
+            #git clone -b releases/2.8 https://gitlab.dune-project.org/core/$repo.git
+            wget https://gitlab.dune-project.org/core/${repo}/-/archive/${dune_version}/${repo}-${dune_version}.zip
+            unzip ${repo}-${dune_version}.zip
+            mv ${repo}-${dune_version} $repo
+            rm -rf ${repo}-${dune_version}.zip
+        fi
     fi
     cd $repo
 
