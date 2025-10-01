@@ -2,9 +2,9 @@ build_type=Release
 build_threads=8
 installdir=$1
 # Build and install Umpire
-RUN git clone --recursive https://github.com/LLNL/Umpire.git
-RUN cd Umpire && \
-    cmake -S . -B build \
+git clone --recursive https://github.com/LLNL/Umpire.git
+cd Umpire
+cmake -S . -B build \
         -DUMPIRE_ENABLE_C=ON \
         -DUMPIRE_ENABLE_TOOLS=OFF \
         -DENABLE_CUDA=OFF \
@@ -17,16 +17,17 @@ RUN cd Umpire && \
         -DCMAKE_BUILD_TYPE=${build_type} \
         -DCMAKE_INSTALL_PREFIX=${installdir} \
         -DCMAKE_PREFIX_PATH="${installdir};/opt/rocm;/usr/local" \
-        -DCMAKE_HIP_ARCHITECTURES="${AMDGPU_TARGETS}" &&\
-    cmake --build build -j ${build_threads} && \
-    cmake --install build
+        -DCMAKE_HIP_ARCHITECTURES="${AMDGPU_TARGETS}"
+cmake --build build -j ${build_threads}
+cmake --install build
 
 
 # Build and install hypre
-RUN git clone https://github.com/hypre-space/hypre
-RUN cd hypre && git checkout origin/auto-umpire && \
-    sed -i 's/hypre_printf(" | %13s | %13s", "UmpPSize (GiB)", "UmpPPeak (GiB)")/&;/' /hypre/src/utilities/memory.c && \
-    cmake -S src -B build \
+git clone https://github.com/hypre-space/hypre
+cd hypre
+git checkout origin/auto-umpire
+sed -i 's/hypre_printf(" | %13s | %13s", "UmpPSize (GiB)", "UmpPPeak (GiB)")/&;/' /hypre/src/utilities/memory.c
+cmake -S src -B build \
         -DCMAKE_BUILD_TYPE=${build_type} \
         -DCMAKE_INSTALL_PREFIX=${installdir} \
         -DHYPRE_INSTALL_PREFIX=${installdir} \
@@ -40,6 +41,6 @@ RUN cd hypre && git checkout origin/auto-umpire && \
         -DHYPRE_ENABLE_UMPIRE_PINNED=ON \
         -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
         -DCMAKE_PREFIX_PATH="${installdir};/opt/rocm;/usr/local" \
-        -DCMAKE_HIP_ARCHITECTURES="${AMDGPU_TARGETS}" &&\
-    cmake --build build -j${build_threads} && \
-    cmake --install build
+        -DCMAKE_HIP_ARCHITECTURES="${AMDGPU_TARGETS}"
+cmake --build build -j${build_threads}
+cmake --install build
