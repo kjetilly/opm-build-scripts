@@ -65,7 +65,7 @@ cmake .. \
   -DUSE_HIP=1 \
   -DUSE_GPU_BRIDGE=OFF \
   -DHAVE_CUDA=1 \
-  -DCMAKE_HIP_ARCHITECTURES=gfx90a \
+  -DCMAKE_HIP_ARCHITECTURES="${AMDGPU_TARGETS}" \
   -DLAPACK_LIBRARIES="$(realpath ../../zoltan/lib64/liblapack.a)" 
 _EOL_
     cd ..

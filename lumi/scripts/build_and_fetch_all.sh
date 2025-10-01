@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+AMDGPU_TARGETS="gfx90a"
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 if [ $# -eq 0 ]
@@ -27,6 +28,7 @@ export PATH="${installdir}/cmake/bin:$PATH"
 bash ${SCRIPT_DIR}/fetch_and_compile_blas.sh ${installdir}/zoltan
 bash ${SCRIPT_DIR}/install_gmp.sh ${installdir}/zoltan
 bash ${SCRIPT_DIR}/install_mpfr.sh ${installdir}/zoltan
+bash ${SCRIPT_DIR}/install_hypre.sh ${installdir}/zoltan
 bash ${SCRIPT_DIR}/fetch_and_compile_suitesparse.sh ${installdir}/zoltan
 
 # We need to fix fmt version
