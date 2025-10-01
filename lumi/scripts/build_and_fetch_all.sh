@@ -28,7 +28,7 @@ export PATH="${installdir}/cmake/bin:$PATH"
 bash ${SCRIPT_DIR}/fetch_and_compile_blas.sh ${installdir}/zoltan
 bash ${SCRIPT_DIR}/install_gmp.sh ${installdir}/zoltan
 bash ${SCRIPT_DIR}/install_mpfr.sh ${installdir}/zoltan
-bash ${SCRIPT_DIR}/install_hypre.sh ${installdir}/zoltan
+bash ${SCRIPT_DIR}/build_hypre.sh ${installdir}/zoltan
 bash ${SCRIPT_DIR}/fetch_and_compile_suitesparse.sh ${installdir}/zoltan
 
 # We need to fix fmt version
